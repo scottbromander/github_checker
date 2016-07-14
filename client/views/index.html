@@ -1,0 +1,59 @@
+<html lang="en" ng-app="StarterApp">
+    <head>
+        <link rel="stylesheet" href="/vendors/angular-material/angular-material.min.css">
+        <link rel="stylesheet" href="/assets/style/style.css">
+
+        <!-- Angular Material / Message Dependencies -->
+        <script type="text/javascript" src="/vendors/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/vendors/angular-animate/angular-animate.min.js"></script>
+        <script type="text/javascript" src="/vendors/angular-messages/angular-messages.min.js"></script>
+        <script type="text/javascript" src="/vendors/angular-aria/angular-aria.min.js"></script>
+
+        <script type="text/javascript" src="/vendors/angular-material/angular-material.min.js"></script>
+
+        <script type="text/javascript" src="/vendors/moment.js"></script>
+
+        <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+    </head>
+
+    <body>
+        <div ng-controller="AppCtrl">
+            <div layout="column" ng-cloak="" >
+                <!--FORM-->
+                <md-toolbar class="md-primary">
+                    <h1 class="md-toolbar-tools">
+                        GitHub Checker
+                    </h1>
+                </md-toolbar>
+                <md-content layout-padding>
+                    <form name="projectForm" ng-model="user">
+                        <md-input-container>
+                            <label>Name</label>
+                            <input md-maxlength="30" required name="name" ng-model="user.name">
+                            <div ng-messages="projectForm.name.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>GitHub User Name</label>
+                            <input required name="githubname" ng-model="user.github">
+                            <div ng-messages="projectForm.githubname.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-button class="md-raised" ng-click="submitUser(user)">Submit</md-button>
+                    </form>
+                </md-content>
+            </div>
+            <md-divider></md-divider>
+
+            <md-content>
+                <div ng-repeat="user in users">
+                    <p>Name: {{user.name}}</p>
+                    <p>GitHub: {{user.github}}</p>
+                    <md-divider></md-divider>
+                </div>
+            </md-content>
+        <div>
+    </body>
+</html>
