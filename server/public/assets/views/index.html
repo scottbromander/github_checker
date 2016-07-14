@@ -29,7 +29,7 @@
                     <form name="projectForm" ng-model="user">
                         <md-input-container>
                             <label>Name</label>
-                            <input md-maxlength="30" required name="name" ng-model="user.name">
+                            <input required name="name" ng-model="user.name">
                             <div ng-messages="projectForm.name.$error">
                                 <div ng-message="required">This is required.</div>
                             </div>
@@ -47,13 +47,32 @@
             </div>
             <md-divider></md-divider>
 
-            <md-content>
-                <div ng-repeat="user in users">
-                    <p>Name: {{user.name}}</p>
-                    <p>GitHub: {{user.github}}</p>
-                    <md-divider></md-divider>
-                </div>
-            </md-content>
+            <div ng-repeat="user in users">
+                <md-content class="md-padding person-card" >
+                        <md-card>
+                            <img ng-src="{{user.imageUrl}}" class="md-avatar person"/>
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <p class="md-headline title"><a href="{{user.link}}" target="_blank">{{user.name}}</a></p>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-content >
+                                <div layout="row">
+                                    <div flex class="marker">
+                                        <p>Today: {{user.today}}</p>
+                                        <div class="yes" ng-show="user.today"></div>
+                                        <div class="no" ng-show="!user.today"></div>
+                                    </div>
+                                    <div flex class="marker">
+                                        <p>Yesterday: {{user.yesterday}}</p>
+                                        <div class="yes" ng-show="user.yesterday"></div>
+                                        <div class="no" ng-show="!user.yesterday"></div>
+                                    </div>
+                            </md-card-content>
+                        </md-card>
+
+                </md-content>
+            </div>
         <div>
     </body>
 </html>

@@ -30,8 +30,6 @@ app.controller('AppCtrl', ['$scope', '$mdDialog', '$http', function($scope, $mdD
                     findAndUpdatePerson(data);
                 });
         }
-
-
     };
 
     var findAndUpdatePerson = function(githubPerson){
@@ -40,22 +38,25 @@ app.controller('AppCtrl', ['$scope', '$mdDialog', '$http', function($scope, $mdD
         for(var i = 0; i < $scope.users.length; i++){
             if(githubPersonName === $scope.users[i].github){
                 var yesterday = moment().subtract(1, 'days').format("L");
+                var today = moment().format("L");
 
                 for(var j = 0; j < githubPerson.length; j++){
-                    var commitMomment = moment(githubPerson[j].updated_at).format("L");
-
-                    console.log(yesterday, commitMomment);
+                    var commitMomment = moment(githubPerson[j].pushed_at).format("L");
 
                     if(yesterday == commitMomment){
-                        console.log("Hit! ", today);
+                        $scope.users[i].yesterday = true;
+                    }
+                    if(today == commitMomment) {
+                        $scope.users[i].today = true;
                     }
                 }
+                $scope.users[i].imageUrl = githubPerson[0].owner.avatar_url;
+                $scope.users[i].link = "http://www.github.com/" + githubPersonName;
             }
         }
     };
 
     var checkYesterday = function(githubCheck, yesterday){
-        console.log(githubCheck, yesterday);
         if(githubCheck == yesterday){
             return true;
         } else {

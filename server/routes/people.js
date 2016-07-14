@@ -19,13 +19,10 @@ router.get("/:person", function(req,res){
 });
 
 router.post("/add", function(req,res){
-    console.log(req.body);
-
     var newPerson = new Person({name: req.body.name, github: req.body.github});
 
     newPerson.save(function(err, data){
         if(err) console.log(err);
-        console.log(data);
         res.send(data);
     });
 });
