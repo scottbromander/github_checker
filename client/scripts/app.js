@@ -36,12 +36,17 @@ app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
                 var today = moment().format("L");
 
                 for(var j = 0; j < githubPerson.length; j++){
-                    var commitMomment = moment(githubPerson[j].pushed_at).format("L");
+                    var commitMomment = moment(githubPerson[j].created_at).format("L");
+                    var updatedMoment = moment(githubPerson[j].updated_at).format("L");
+                    var pushedMoment = moment(githubPerson[j].pushed_at).format("L");
 
-                    if(yesterday == commitMomment){
+
+                    console.log(githubPersonName, githubPerson[j])
+
+                    if(yesterday == commitMomment || yesterday == updatedMoment || yesterday == pushedMoment){
                         $scope.users[i].yesterday = true;
                     }
-                    if(today == commitMomment) {
+                    if(today == commitMomment || today == updatedMoment || today == pushedMoment) {
                         $scope.users[i].today = true;
                     }
                 }
