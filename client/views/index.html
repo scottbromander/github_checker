@@ -1,16 +1,11 @@
+<!DOCTYPE html>
 <html lang="en" ng-app="StarterApp">
     <head>
-        <link rel="stylesheet" href="/vendors/angular-material/angular-material.min.css">
+        <link rel="stylesheet" href="/vendors/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/style/style.css">
 
         <!-- Angular Material / Message Dependencies -->
         <script type="text/javascript" src="/vendors/angular/angular.min.js"></script>
-        <script type="text/javascript" src="/vendors/angular-animate/angular-animate.min.js"></script>
-        <script type="text/javascript" src="/vendors/angular-messages/angular-messages.min.js"></script>
-        <script type="text/javascript" src="/vendors/angular-aria/angular-aria.min.js"></script>
-
-        <script type="text/javascript" src="/vendors/angular-material/angular-material.min.js"></script>
-
         <script type="text/javascript" src="/vendors/moment.js"></script>
 
         <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
@@ -18,59 +13,71 @@
 
     <body>
         <div ng-controller="AppCtrl">
-            <div layout="column" ng-cloak="" >
-                <!--FORM-->
-                <md-toolbar class="md-primary">
-                    <h1 class="md-toolbar-tools">
-                        GitHub Checker
-                    </h1>
-                </md-toolbar>
-                <md-content layout-padding>
-                    <form name="projectForm" ng-model="user">
-                        <md-input-container>
-                            <label>Name</label>
-                            <input required name="name" ng-model="user.name">
-                            <div ng-messages="projectForm.name.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container>
-                            <label>GitHub User Name</label>
-                            <input required name="githubname" ng-model="user.github">
-                            <div ng-messages="projectForm.githubname.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                        <md-button class="md-raised" ng-click="submitUser(user)">Submit</md-button>
-                    </form>
-                </md-content>
-            </div>
-            <md-divider></md-divider>
+            <!--FORM-->
+            <div class="jumbotron">
+                <div class="container">
 
-            <div ng-repeat="user in users">
-                <md-content class="md-padding person-card" >
-                        <md-card>
-                            <img ng-src="{{user.imageUrl}}" class="md-avatar person"/>
-                            <md-card-title>
-                                <md-card-title-text>
-                                    <p class="md-headline title"><a href="{{user.link}}" target="_blank">{{user.name}}</a></p>
-                                </md-card-title-text>
-                            </md-card-title>
-                            <md-card-content >
-                                <div layout="row">
-                                    <div flex class="marker">
-                                        <p>Today: {{user.today}}</p>
-                                        <div class="yes" ng-show="user.today"></div>
-                                        <div class="no" ng-show="!user.today"></div>
-                                    </div>
-                                    <div flex class="marker">
-                                        <p>Yesterday: {{user.yesterday}}</p>
-                                        <div class="yes" ng-show="user.yesterday"></div>
-                                        <div class="no" ng-show="!user.yesterday"></div>
-                                    </div>
-                            </md-card-content>
-                        </md-card>
-                </md-content>
+                <h3 class="md-toolbar-tools">
+                    GitHub Checker
+                </h3>
+
+                <form name="projectForm" ng-model="user">
+                    <div class="row">
+                        <div class="col-md-2 text-left">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input required name="name" ng-model="user.name">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 text-left">
+                            <label>GitHub User Name</label>
+                        </div>
+                        <div class="col-md-1">
+                            <input required name="githubname" ng-model="user.github">
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-info btn-sm" ng-click="submitUser(user)">Add User</button>
+
+
+                </form>
+                </div>
+            </div>
+
+
+            <!--LIST OF PEOPLE-->
+            <div class="container">
+            <div ng-repeat="user in users" class="names">
+
+                    <div class="row ">
+                        <div class="col-md-1">
+                            <img ng-src="{{user.imageUrl}}"  class="dot"/>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="lead name"><a href="{{user.link}}" target="_blank">{{user.name}}</a></p>
+                        </div>
+                        <div class="col-md-1 ">
+                            <p class="lead text-right">Today:</p>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="dot no" ng-show="!user.today"></div>
+                            <div class="dot yes" ng-show="user.today"></div>
+                        </div>
+                        <div class="col-md-1">
+                            <p class="lead text-right">Yesterday:</p>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="dot no" ng-show="!user.yesterday"></div>
+                            <div class="dot yes" ng-show="user.yesterday"></div>
+                        </div>
+                    </div>
+
+            </div>
             </div>
         <div>
     </body>

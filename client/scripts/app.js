@@ -1,12 +1,7 @@
-var app = angular.module('StarterApp', ['ngMaterial', 'ngMessages']);
+var app = angular.module('StarterApp', []);
 
-app.config(['$mdThemingProvider', function($mdThemingProvider){
-    $mdThemingProvider.theme('default')
-        .primaryPalette('blue-grey')
-        .accentPalette('grey');
-}]);
 
-app.controller('AppCtrl', ['$scope', '$mdDialog', '$http', function($scope, $mdDialog, $http){
+app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
     $scope.user = {};
     $scope.users = [];
 
