@@ -4,6 +4,9 @@ var app = angular.module('StarterApp', []);
 app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
     $scope.user = {};
     $scope.users = [];
+    $scope.todayCount = 0;
+    $scope.yesterdayCount = 0;
+    $scope.dblCount = 0;
 
     $scope.submitUser = function(user){
         $http.post("/challenge/add", user).then($scope.findUser());
@@ -30,8 +33,13 @@ app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
     var findAndUpdatePerson = function(githubPerson){
         githubPersonName = githubPerson[0].owner.login;
 
+        var checkinCount = 0;
+        var yesterdayCount = 0;
+        var dblCount = 0;
+
         for(var i = 0; i < $scope.users.length; i++){
             if(githubPersonName === $scope.users[i].github){
+                var daybefore = moment().subtract(2, 'days').format("L");
                 var yesterday = moment().subtract(1, 'days').format("L");
                 var today = moment().format("L");
 
@@ -40,9 +48,11 @@ app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
                     var updatedMoment = moment(githubPerson[j].updated_at).format("L");
                     var pushedMoment = moment(githubPerson[j].pushed_at).format("L");
 
-
                     console.log(githubPersonName, githubPerson[j])
 
+                    if(daybefore == commitMomment || daybefore == updatedMoment || daybefore == pushedMoment){
+                        $scope.users[i].daybefore = true;
+                    }
                     if(yesterday == commitMomment || yesterday == updatedMoment || yesterday == pushedMoment){
                         $scope.users[i].yesterday = true;
                     }
@@ -53,6 +63,21 @@ app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
                 $scope.users[i].imageUrl = githubPerson[0].owner.avatar_url;
                 $scope.users[i].link = "http://www.github.com/" + githubPersonName;
             }
+
+            if($scope.users[i].today){
+                checkinCount++;
+            }
+
+            if($scope.users[i].yesterday){
+                yesterdayCount++;
+            }
+            if($scope.users[i].daybefore){
+                dblCount++;
+            }
+
+            $scope.todayCount = checkinCount;
+            $scope.yesterdayCount = yesterdayCount;
+            $scope.dblCount = dblCount;
         }
     };
 

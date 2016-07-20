@@ -52,13 +52,17 @@
 
             <!--LIST OF PEOPLE-->
             <div class="container">
+                <p class="lead">Today's Checkins: {{todayCount}} / Yesterday's Checkins: {{yesterdayCount}} / DBL Checkins: {{dblCount}}</p>
             <div ng-repeat="user in users" class="names">
 
                     <div class="row ">
                         <div class="col-md-1">
+                            <p>{{$index + 1}}. </p>
+                        </div>
+                        <div class="col-md-1">
                             <img ng-src="{{user.imageUrl}}"  class="dot"/>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <p class="lead name"><a href="{{user.link}}" target="_blank">{{user.name}}</a></p>
                         </div>
                         <div class="col-md-1 ">
@@ -74,6 +78,13 @@
                         <div class="col-md-1">
                             <div class="dot no" ng-show="!user.yesterday"></div>
                             <div class="dot yes" ng-show="user.yesterday"></div>
+                        </div>
+                        <div class="col-md-1">
+                            <p class="lead text-right">DBL:</p>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="dot no" ng-show="!user.daybefore"></div>
+                            <div class="dot yes" ng-show="user.daybefore"></div>
                         </div>
                     </div>
 
