@@ -31,14 +31,14 @@ app.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
     };
 
     var findAndUpdatePerson = function(githubPerson){
-        githubPersonName = githubPerson[0].owner.login;
+        githubPersonName = githubPerson[0].owner.login.toLowerCase();
 
         var checkinCount = 0;
         var yesterdayCount = 0;
         var dblCount = 0;
 
         for(var i = 0; i < $scope.users.length; i++){
-            if(githubPersonName === $scope.users[i].github){
+            if(githubPersonName === $scope.users[i].github.toLowerCase()){
                 var daybefore = moment().subtract(2, 'days').format("L");
                 var yesterday = moment().subtract(1, 'days').format("L");
                 var today = moment().format("L");
